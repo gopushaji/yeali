@@ -1,4 +1,4 @@
-// Yeali product catalog.
+// Yeali product catalog and store settings.
 // This file is managed by the admin page (admin.html) — "Publish" rewrites it.
 window.PRODUCTS = [
   {
@@ -83,3 +83,10 @@ window.PRODUCTS = [
     "fabric": ""
   }
 ];
+
+window.SITE = {
+  "announce": "",
+  "instagram": "https://instagram.com/yeali.clothing",
+  "whatsapp": "919605225211",
+  "freeShipThreshold": 2500
+};
