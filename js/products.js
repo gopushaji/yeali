@@ -30,23 +30,19 @@ window.PRODUCTS = [
     "id": "terracotta-coord",
     "name": "Crimson Red Bridal Lehenga",
     "category": "Bespoke Lehengas",
-    "price": 4800,
+    "price": 34999,
     "badge": "New",
     "sizes": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
+      "Custom Made"
     ],
     "images": [
+      "assets/uploads/terracotta-coord-1783158302391-2.jpg",
       "assets/uploads/terracotta-coord-1783158298715-0.jpg",
       "assets/uploads/terracotta-coord-1783158300645-1.jpg",
-      "assets/uploads/terracotta-coord-1783158302391-2.jpg",
       "assets/uploads/terracotta-coord-1783158304169-3.jpg"
     ],
-    "desc": "Relaxed shirt and wide-leg trousers in breathable linen. Wear as a set, or split them across your wardrobe.",
-    "fabric": "100% linen. Hand wash or gentle cycle, iron while slightly damp."
+    "desc": "",
+    "fabric": ""
   },
   {
     "id": "sage-slip-dress",
