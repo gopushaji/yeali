@@ -16,18 +16,21 @@ window.PRODUCTS = [
     ],
     "images": [
       "assets/uploads/ivory-wrap-dress-1783157021954-0.jpg",
-      "assets/uploads/ivory-wrap-dress-1783157024025-1.jpg",
-      "assets/uploads/ivory-wrap-dress-1783157025991-2.jpg",
-      "assets/uploads/ivory-wrap-dress-1783157027848-3.jpg"
+      "assets/uploads/ivory-wrap-dress-1783157027848-3.jpg",
+      "assets/uploads/ivory-wrap-dress-1783158291020-2.jpg",
+      "assets/uploads/ivory-wrap-dress-1783158293123-3.jpg",
+      "assets/uploads/ivory-wrap-dress-1783158295035-4.jpg",
+      "assets/uploads/ivory-wrap-dress-1783158296801-5.jpg",
+      "assets/uploads/ivory-wrap-dress-1783157024025-1.jpg"
     ],
     "desc": "A softly draped wrap silhouette in handloom cotton — cinches at the waist, flows everywhere else. Day-to-dinner easy.",
     "fabric": "100% handloom cotton. Gentle machine wash cold, line dry in shade."
   },
   {
     "id": "terracotta-coord",
-    "name": "Terracotta Linen Co-ord",
-    "category": "Co-ord Sets",
-    "price": 4200,
+    "name": "Crimson Red Bridal Lehenga",
+    "category": "Bespoke Lehengas",
+    "price": 4800,
     "badge": "New",
     "sizes": [
       "XS",
@@ -37,16 +40,19 @@ window.PRODUCTS = [
       "XL"
     ],
     "images": [
-      "assets/product-2.svg"
+      "assets/uploads/terracotta-coord-1783158298715-0.jpg",
+      "assets/uploads/terracotta-coord-1783158300645-1.jpg",
+      "assets/uploads/terracotta-coord-1783158302391-2.jpg",
+      "assets/uploads/terracotta-coord-1783158304169-3.jpg"
     ],
     "desc": "Relaxed shirt and wide-leg trousers in breathable linen. Wear as a set, or split them across your wardrobe.",
     "fabric": "100% linen. Hand wash or gentle cycle, iron while slightly damp."
   },
   {
     "id": "sage-slip-dress",
-    "name": "Sage Organza Slip Dress",
-    "category": "Dresses",
-    "price": 3900,
+    "name": "Printed Blue Floral Kurta",
+    "category": "Casual Kurtas",
+    "price": 9000,
     "badge": "",
     "sizes": [
       "XS",
@@ -55,7 +61,11 @@ window.PRODUCTS = [
       "L"
     ],
     "images": [
-      "assets/product-3.svg"
+      "assets/uploads/sage-slip-dress-1783158306083-0.jpg",
+      "assets/uploads/sage-slip-dress-1783158307673-1.jpg",
+      "assets/uploads/sage-slip-dress-1783158309587-2.jpg",
+      "assets/uploads/sage-slip-dress-1783158311674-3.jpg",
+      "assets/uploads/sage-slip-dress-1783158314236-4.jpg"
     ],
     "desc": "Bias-cut slip with a whisper of organza at the hem. Understated for brunch, luminous by evening.",
     "fabric": "Modal-silk blend with organza trim. Dry clean recommended."
