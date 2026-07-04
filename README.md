@@ -39,11 +39,11 @@ reorder everything.
 
 | What | Where |
 |------|-------|
-| WhatsApp number | `WHATSAPP_NUMBER` at the top of [js/app.js](js/app.js) |
-| Instagram handle | `INSTAGRAM_URL` in [js/app.js](js/app.js) + links in [index.html](index.html) |
+| WhatsApp number, Instagram URL | **Store settings** in [admin.html](admin.html) |
+| Announcement banner (empty = hidden) | **Store settings** in [admin.html](admin.html) |
+| Free-shipping threshold | **Store settings** in [admin.html](admin.html) |
 | Products, prices, sizes, photos | [admin.html](admin.html) (or edit [js/products.js](js/products.js) by hand) |
 | Founder photo | Replace `assets/vidhu.svg` |
-| Free-shipping threshold | `FREE_SHIP_THRESHOLD` in [js/app.js](js/app.js) |
 | Email | `hello@yeali.in` in the footer |
 
 ## Structure

@@ -14,17 +14,52 @@ function normalize(list) {
   }));
 }
 
-let products;
+const SITE_DEFAULTS = {
+  announce: "Small-batch drops · Free shipping across India on orders over ₹2,500",
+  instagram: "https://instagram.com/yeali",
+  whatsapp: "919999999999",
+  freeShipThreshold: 2500,
+};
+
+let products, site;
 const draft = localStorage.getItem(DRAFT_KEY);
 if (draft) {
-  try { products = JSON.parse(draft); } catch (_) { products = null; }
+  try {
+    const d = JSON.parse(draft);
+    if (Array.isArray(d)) products = d; // draft saved before site settings existed
+    else { products = d.products; site = d.site; }
+  } catch (_) { /* fall through to published state */ }
 }
 if (!products) products = normalize(window.PRODUCTS);
+if (!site) site = { ...SITE_DEFAULTS, ...(window.SITE || {}) };
 
 let config = { owner: "gopushaji", repo: "yeali", branch: "main", token: "" };
 try { config = { ...config, ...JSON.parse(localStorage.getItem(CONFIG_KEY) || "{}") }; } catch (_) {}
 
-const saveDraft = () => localStorage.setItem(DRAFT_KEY, JSON.stringify(products));
+const saveDraft = () => localStorage.setItem(DRAFT_KEY, JSON.stringify({ site, products }));
+
+/* ---------- store settings ---------- */
+const SITE_FIELDS = {
+  announce: "siteAnnounce",
+  instagram: "siteInstagram",
+  whatsapp: "siteWhatsapp",
+  freeShipThreshold: "siteShip",
+};
+
+function renderSiteInputs() {
+  for (const [key, id] of Object.entries(SITE_FIELDS)) {
+    document.getElementById(id).value = site[key];
+  }
+}
+
+for (const [key, id] of Object.entries(SITE_FIELDS)) {
+  document.getElementById(id).addEventListener("input", (e) => {
+    site[key] = key === "freeShipThreshold"
+      ? Math.max(0, Math.round(+e.target.value || 0))
+      : e.target.value;
+    saveDraft();
+  });
+}
 
 /* ---------- rendering ---------- */
 const listEl = document.getElementById("productList");
@@ -144,6 +179,8 @@ document.getElementById("resetBtn").addEventListener("click", () => {
   if (!confirm("Discard all unpublished changes and reload the published catalog?")) return;
   localStorage.removeItem(DRAFT_KEY);
   products = normalize(window.PRODUCTS);
+  site = { ...SITE_DEFAULTS, ...(window.SITE || {}) };
+  renderSiteInputs();
   render();
   toast("Draft discarded");
 });
@@ -265,6 +302,17 @@ publishBtn.addEventListener("click", async () => {
     if (!p.sizes.length) return status(`"${label}" needs at least one size.`, "err");
     if (!p.images.length) return status(`"${label}" needs at least one photo.`, "err");
   }
+  // normalize store settings
+  const cleanSite = {
+    announce: String(site.announce || "").trim(),
+    instagram: String(site.instagram || "").trim() || SITE_DEFAULTS.instagram,
+    whatsapp: String(site.whatsapp || "").replace(/\D/g, ""),
+    freeShipThreshold: Math.max(0, Math.round(+site.freeShipThreshold || 0)) || SITE_DEFAULTS.freeShipThreshold,
+  };
+  if (!/^https?:\/\//i.test(cleanSite.instagram)) cleanSite.instagram = "https://" + cleanSite.instagram;
+  if (cleanSite.whatsapp.length < 10) {
+    return status("WhatsApp number looks incomplete — enter country code + number, digits only.", "err");
+  }
   if (!config.token) {
     settingsPanel.hidden = false;
     return status("Add your GitHub access token in Settings first.", "err");
@@ -294,13 +342,17 @@ publishBtn.addEventListener("click", async () => {
       sha = (await gh(`contents/${PRODUCTS_PATH}?ref=${config.branch}`)).sha;
     } catch (_) { sha = undefined; }
     const fileText =
-      "// Yeali product catalog.\n" +
+      "// Yeali product catalog and store settings.\n" +
       "// This file is managed by the admin page (admin.html) — \"Publish\" rewrites it.\n" +
-      "window.PRODUCTS = " + JSON.stringify(products, null, 2) + ";\n";
+      "window.PRODUCTS = " + JSON.stringify(products, null, 2) + ";\n\n" +
+      "window.SITE = " + JSON.stringify(cleanSite, null, 2) + ";\n";
     await putFile(PRODUCTS_PATH, b64encodeText(fileText), "Update catalog from admin", sha);
 
     localStorage.removeItem(DRAFT_KEY);
     window.PRODUCTS = JSON.parse(JSON.stringify(products));
+    window.SITE = { ...cleanSite };
+    site = { ...cleanSite };
+    renderSiteInputs();
     render();
     status("Published! The live site updates in about a minute.", "ok");
     toast("Published ✓");
@@ -328,4 +380,5 @@ function toast(msg) {
 }
 
 if (draft) status("You have an unpublished draft (restored from this browser).");
+renderSiteInputs();
 render();

@@ -1,9 +1,25 @@
 /* ============ Yeali storefront logic ============ */
 
-// Order handoff destinations — update these with the brand's real handles.
-const WHATSAPP_NUMBER = "919999999999"; // country code + number, digits only
-const INSTAGRAM_URL = "https://instagram.com/yeali";
-const FREE_SHIP_THRESHOLD = 2500;
+// Site-wide settings, published from the admin page (window.SITE in js/products.js).
+const SITE = {
+  announce: "Small-batch drops · Free shipping across India on orders over ₹2,500",
+  instagram: "https://instagram.com/yeali",
+  whatsapp: "919999999999",
+  freeShipThreshold: 2500,
+  ...(window.SITE || {}),
+};
+const WHATSAPP_NUMBER = String(SITE.whatsapp || "").replace(/\D/g, "") || "919999999999";
+const INSTAGRAM_URL = SITE.instagram || "https://instagram.com/yeali";
+const FREE_SHIP_THRESHOLD = Math.max(0, +SITE.freeShipThreshold || 0) || 2500;
+
+// announcement banner: admin-provided text, hidden entirely when empty
+{
+  const bar = document.getElementById("announceBar");
+  if (SITE.announce && String(SITE.announce).trim()) bar.textContent = SITE.announce;
+  else bar.remove();
+}
+// point every Instagram link at the configured profile
+document.querySelectorAll('a[href*="instagram.com"]').forEach((a) => (a.href = INSTAGRAM_URL));
 
 const PRODUCTS = (window.PRODUCTS || []).map((p) => ({
   ...p,
@@ -444,7 +460,9 @@ window.addEventListener("popstate", () => {
 
 function renderCart() {
   const count = cart.reduce((n, i) => n + i.qty, 0);
-  document.getElementById("cartCount").textContent = count;
+  const countEl = document.getElementById("cartCount");
+  countEl.textContent = count;
+  countEl.hidden = count === 0;
 
   steps.bag.classList.toggle("drawer--empty", cart.length === 0);
 
@@ -569,14 +587,18 @@ function toast(msg) {
   toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2400);
 }
 
+const navLinksEl = document.getElementById("navLinks");
+const navScrim = document.getElementById("navScrim");
+function closeMenu() {
+  navLinksEl.classList.remove("open");
+  navScrim.classList.remove("show");
+}
 document.getElementById("burger").addEventListener("click", () => {
-  document.getElementById("navLinks").classList.toggle("open");
+  const open = navLinksEl.classList.toggle("open");
+  navScrim.classList.toggle("show", open);
 });
-document.querySelectorAll("#navLinks a").forEach((a) =>
-  a.addEventListener("click", () =>
-    document.getElementById("navLinks").classList.remove("open")
-  )
-);
+navScrim.addEventListener("click", closeMenu);
+document.querySelectorAll("#navLinks a").forEach((a) => a.addEventListener("click", closeMenu));
 
 document.addEventListener("keydown", (e) => {
   const lbOpen = lbEl.classList.contains("open");

@@ -13,8 +13,8 @@
 </head>
 <body>
 
-  <!-- ANNOUNCEMENT -->
-  <div class="announce">Small-batch drops · Free shipping across India on orders over ₹2,500</div>
+  <!-- ANNOUNCEMENT (text managed from admin; hidden when empty) -->
+  <div class="announce" id="announceBar">Small-batch drops · Free shipping across India on orders over ₹2,500</div>
 
   <!-- NAV -->
   <header class="nav" id="top">
@@ -33,10 +33,12 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.8" cy="6.2" r="1.1" fill="currentColor" stroke="none"/></svg>
         </a>
         <button class="nav__cart" id="cartBtn" aria-label="Open cart">
-          Cart <span class="nav__cart-count" id="cartCount">0</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1.2 12.1a1.9 1.9 0 0 1-1.9 1.7H9.1a1.9 1.9 0 0 1-1.9-1.7L6 8z"/><path d="M9 10.5V6a3 3 0 0 1 6 0v4.5"/></svg>
+          <span class="nav__cart-count" id="cartCount">0</span>
         </button>
       </div>
     </nav>
+    <div class="nav__scrim" id="navScrim"></div>
   </header>
 
   <!-- HERO -->
@@ -164,11 +166,17 @@
   <div class="modal" id="productModal" aria-hidden="true">
     <div class="modal__backdrop" data-close-modal></div>
     <div class="modal__panel" role="dialog" aria-modal="true" aria-label="Product details">
-      <button class="modal__close" data-close-modal aria-label="Close">&times;</button>
+      <button class="modal__close" data-close-modal aria-label="Close">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
       <div class="modal__media" id="modalMedia">
         <div class="modal__slider" id="modalSlider"></div>
-        <button class="carousel__arrow carousel__arrow--prev" id="imgPrev" aria-label="Previous photo" hidden>&#8249;</button>
-        <button class="carousel__arrow carousel__arrow--next" id="imgNext" aria-label="Next photo" hidden>&#8250;</button>
+        <button class="carousel__arrow carousel__arrow--prev" id="imgPrev" aria-label="Previous photo" hidden>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
+        </button>
+        <button class="carousel__arrow carousel__arrow--next" id="imgNext" aria-label="Next photo" hidden>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
         <div class="modal__scroll-hint" aria-hidden="true">Scroll for details<br />&#8964;</div>
         <div class="carousel__thumbs" id="modalThumbs"></div>
       </div>
@@ -256,9 +264,15 @@
     <div class="lightbox__stage" id="lbStage">
       <img id="lbImg" src="" alt="" draggable="false" />
     </div>
-    <button class="lightbox__close" id="lbClose" aria-label="Close enlarged view">&times;</button>
-    <button class="lightbox__arrow lightbox__arrow--prev" id="lbPrev" aria-label="Previous photo" hidden>&#8249;</button>
-    <button class="lightbox__arrow lightbox__arrow--next" id="lbNext" aria-label="Next photo" hidden>&#8250;</button>
+    <button class="lightbox__close" id="lbClose" aria-label="Close enlarged view">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <button class="lightbox__arrow lightbox__arrow--prev" id="lbPrev" aria-label="Previous photo" hidden>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
+    </button>
+    <button class="lightbox__arrow lightbox__arrow--next" id="lbNext" aria-label="Next photo" hidden>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+    </button>
   </div>
 
   <div class="toast" id="toast" role="status"></div>
