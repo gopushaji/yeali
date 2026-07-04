@@ -5,7 +5,7 @@ window.PRODUCTS = [
     "id": "ivory-wrap-dress",
     "name": "Elegant Lace Mermaid Gown",
     "category": "Bespoke Gowns",
-    "price": 5500,
+    "price": 69999,
     "badge": "Bestseller",
     "sizes": [
       "XS",
@@ -15,9 +15,9 @@ window.PRODUCTS = [
       "XL"
     ],
     "images": [
+      "assets/uploads/ivory-wrap-dress-1783158291020-2.jpg",
       "assets/uploads/ivory-wrap-dress-1783157021954-0.jpg",
       "assets/uploads/ivory-wrap-dress-1783157027848-3.jpg",
-      "assets/uploads/ivory-wrap-dress-1783158291020-2.jpg",
       "assets/uploads/ivory-wrap-dress-1783158293123-3.jpg",
       "assets/uploads/ivory-wrap-dress-1783158295035-4.jpg",
       "assets/uploads/ivory-wrap-dress-1783158296801-5.jpg",
