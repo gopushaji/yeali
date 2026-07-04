@@ -2,6 +2,24 @@
 // This file is managed by the admin page (admin.html) — "Publish" rewrites it.
 window.PRODUCTS = [
   {
+    "id": "product-1783160508183",
+    "name": "Crushed Rayon Classic Tunic",
+    "category": "Classic Tunics",
+    "price": 999,
+    "badge": "",
+    "sizes": [
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "assets/uploads/product-1783160508183-1783160663306-0.jpg",
+      "assets/uploads/product-1783160508183-1783160665675-1.jpg"
+    ],
+    "desc": "",
+    "fabric": ""
+  },
+  {
     "id": "ivory-wrap-dress",
     "name": "Elegant Lace Mermaid Gown",
     "category": "Bespoke Gowns",
@@ -59,9 +77,9 @@ window.PRODUCTS = [
     "images": [
       "assets/uploads/sage-slip-dress-1783158306083-0.jpg",
       "assets/uploads/sage-slip-dress-1783158307673-1.jpg",
+      "assets/uploads/sage-slip-dress-1783158314236-4.jpg",
       "assets/uploads/sage-slip-dress-1783158309587-2.jpg",
-      "assets/uploads/sage-slip-dress-1783158311674-3.jpg",
-      "assets/uploads/sage-slip-dress-1783158314236-4.jpg"
+      "assets/uploads/sage-slip-dress-1783158311674-3.jpg"
     ],
     "desc": "Bias-cut slip with a whisper of organza at the hem. Understated for brunch, luminous by evening.",
     "fabric": "Modal-silk blend with organza trim. Dry clean recommended."
