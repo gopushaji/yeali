@@ -20,6 +20,26 @@ window.PRODUCTS = [
     "fabric": ""
   },
   {
+    "id": "sage-slip-dress",
+    "name": "Printed Blue Floral Kurta",
+    "category": "Casual Kurtas",
+    "price": 899,
+    "badge": "",
+    "sizes": [
+      "M",
+      "L"
+    ],
+    "images": [
+      "assets/uploads/sage-slip-dress-1783158314236-4.jpg",
+      "assets/uploads/sage-slip-dress-1783158306083-0.jpg",
+      "assets/uploads/sage-slip-dress-1783158307673-1.jpg",
+      "assets/uploads/sage-slip-dress-1783158309587-2.jpg",
+      "assets/uploads/sage-slip-dress-1783158311674-3.jpg"
+    ],
+    "desc": "Printed cotton loose-fit kurti crafted from soft, breathable cotton for all-day comfort. Designed with a stylish contrast embroidered neck band that adds an elegant touch to the classic printed fabric. The relaxed silhouette offers effortless style, making it perfect for everyday wear, office, and casual outings.",
+    "fabric": "Machine wash cold on a gentle cycle or hand wash separately."
+  },
+  {
     "id": "ivory-wrap-dress",
     "name": "Elegant Lace Mermaid Gown",
     "category": "Bespoke Gowns",
@@ -61,25 +81,5 @@ window.PRODUCTS = [
     ],
     "desc": "",
     "fabric": ""
-  },
-  {
-    "id": "sage-slip-dress",
-    "name": "Printed Blue Floral Kurta",
-    "category": "Casual Kurtas",
-    "price": 899,
-    "badge": "",
-    "sizes": [
-      "M",
-      "L"
-    ],
-    "images": [
-      "assets/uploads/sage-slip-dress-1783158314236-4.jpg",
-      "assets/uploads/sage-slip-dress-1783158306083-0.jpg",
-      "assets/uploads/sage-slip-dress-1783158307673-1.jpg",
-      "assets/uploads/sage-slip-dress-1783158309587-2.jpg",
-      "assets/uploads/sage-slip-dress-1783158311674-3.jpg"
-    ],
-    "desc": "Printed cotton loose-fit kurti crafted from soft, breathable cotton for all-day comfort. Designed with a stylish contrast embroidered neck band that adds an elegant touch to the classic printed fabric. The relaxed silhouette offers effortless style, making it perfect for everyday wear, office, and casual outings.",
-    "fabric": "Machine wash cold on a gentle cycle or hand wash separately."
   }
 ];
