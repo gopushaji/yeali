@@ -206,7 +206,13 @@ document.getElementById("testSettingsBtn").addEventListener("click", async () =>
     await gh(`contents/${PRODUCTS_PATH}?ref=${config.branch}`);
     status("Connection OK — repository is reachable and the token works.", "ok");
   } catch (err) {
-    status("Connection failed: " + err.message, "err");
+    let msg = "Connection failed: " + err.message;
+    if (/failed to fetch/i.test(err.message)) {
+      msg += location.protocol === "file:"
+        ? " — you opened this page as a local file; open the hosted admin page (https://…/admin.html) instead."
+        : " — the request was blocked before reaching GitHub. Try a private/incognito window (extensions can block it) or a different browser/network.";
+    }
+    status(msg, "err");
   }
 });
 
