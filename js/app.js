@@ -77,15 +77,58 @@ let modalProduct = null;
 let selectedSize = null;
 let modalImgIdx = 0;
 
-function setModalImage(idx) {
-  const imgs = modalProduct.images;
-  modalImgIdx = (idx + imgs.length) % imgs.length;
-  const img = document.getElementById("modalImg");
-  img.src = imgs[modalImgIdx];
-  img.alt = `${modalProduct.name} — photo ${modalImgIdx + 1}`;
+function syncModalThumbs() {
   document
     .querySelectorAll("#modalThumbs button")
     .forEach((b, i) => b.classList.toggle("active", i === modalImgIdx));
+}
+
+// Chromium ignores smooth programmatic scrolls on mandatory-snap containers,
+// so animate scrollLeft manually with the snap lifted for the duration.
+let sliderAnim = null;
+function scrollSliderTo(slider, left, instant) {
+  cancelAnimationFrame(sliderAnim);
+  if (instant) {
+    slider.style.scrollSnapType = "";
+    slider.scrollLeft = left;
+    return;
+  }
+  const start = slider.scrollLeft;
+  const dist = left - start;
+  if (!dist) {
+    slider.style.scrollSnapType = "";
+    return;
+  }
+  const duration = 320;
+  const t0 = performance.now();
+  slider.style.scrollSnapType = "none";
+  const step = (now) => {
+    const t = Math.min(1, (now - t0) / duration);
+    slider.scrollLeft = start + dist * (1 - Math.pow(1 - t, 3));
+    if (t < 1) sliderAnim = requestAnimationFrame(step);
+    else slider.style.scrollSnapType = "";
+  };
+  sliderAnim = requestAnimationFrame(step);
+}
+
+function setModalImage(idx, instant = false) {
+  const imgs = modalProduct.images;
+  modalImgIdx = ((idx % imgs.length) + imgs.length) % imgs.length;
+  const slider = document.getElementById("modalSlider");
+  scrollSliderTo(slider, modalImgIdx * slider.clientWidth, instant);
+  syncModalThumbs();
+}
+
+/* history-aware overlays: the browser back button closes the top overlay
+   instead of leaving the page (important on mobile, where the full-screen
+   quick view reads as a new page) */
+function pushOverlayState(name) {
+  history.pushState({ yeali: name }, "");
+}
+// a reload while an overlay was open leaves its state entry current — neutralize it
+if (history.state && history.state.yeali) history.replaceState(null, "");
+function hasOverlayState() {
+  return !!(history.state && history.state.yeali);
 }
 
 function openProduct(id) {
@@ -101,12 +144,17 @@ function openProduct(id) {
   const multi = modalProduct.images.length > 1;
   document.getElementById("imgPrev").hidden = !multi;
   document.getElementById("imgNext").hidden = !multi;
+  const slider = document.getElementById("modalSlider");
+  slider.innerHTML = modalProduct.images
+    .map((src, i) => `<img src="${src}" alt="${modalProduct.name} — photo ${i + 1}"${i ? ' loading="lazy"' : ""} />`)
+    .join("");
   document.getElementById("modalThumbs").innerHTML = multi
     ? modalProduct.images
         .map((src, i) => `<button type="button" data-img-idx="${i}" aria-label="Photo ${i + 1}"><img src="${src}" alt="" /></button>`)
         .join("")
     : "";
-  setModalImage(0);
+  modalImgIdx = 0;
+  syncModalThumbs();
 
   const picker = document.getElementById("sizePicker");
   picker.innerHTML = modalProduct.sizes
@@ -119,11 +167,18 @@ function openProduct(id) {
 
   modal.classList.add("open");
   document.body.style.overflow = "hidden";
+  slider.scrollLeft = 0; // reset only after the modal is visible (layout exists)
+  pushOverlayState("modal");
+}
+
+function modalHide() {
+  modal.classList.remove("open");
+  document.body.style.overflow = "";
 }
 
 function closeModal() {
-  modal.classList.remove("open");
-  document.body.style.overflow = "";
+  if (hasOverlayState()) history.back();
+  else modalHide();
 }
 
 document.addEventListener("click", (e) => {
@@ -146,24 +201,29 @@ document.addEventListener("click", (e) => {
 document.getElementById("imgPrev").addEventListener("click", () => setModalImage(modalImgIdx - 1));
 document.getElementById("imgNext").addEventListener("click", () => setModalImage(modalImgIdx + 1));
 
-// swipe between photos inside the quick view (touch)
+// swiping the slider natively — keep index and thumbnails in sync
 {
-  const media = document.querySelector(".modal__media");
-  let sx = null, sy = null;
-  media.addEventListener("touchstart", (e) => {
-    sx = e.touches[0].clientX;
-    sy = e.touches[0].clientY;
-  }, { passive: true });
-  media.addEventListener("touchend", (e) => {
-    if (sx === null || !modalProduct) return;
-    const dx = e.changedTouches[0].clientX - sx;
-    const dy = e.changedTouches[0].clientY - sy;
-    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5 && modalProduct.images.length > 1) {
-      setModalImage(modalImgIdx + (dx < 0 ? 1 : -1));
-    }
-    sx = null;
+  const slider = document.getElementById("modalSlider");
+  let ticking = false;
+  slider.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const i = Math.round(slider.scrollLeft / slider.clientWidth);
+      if (modalProduct && i !== modalImgIdx && i >= 0 && i < modalProduct.images.length) {
+        modalImgIdx = i;
+        syncModalThumbs();
+      }
+      ticking = false;
+    });
   }, { passive: true });
 }
+
+// clicking/tapping the photo (not the controls) opens the full-screen view
+document.getElementById("modalMedia").addEventListener("click", (e) => {
+  if (e.target.closest(".carousel__arrow, .carousel__thumbs")) return;
+  openLightbox();
+});
 
 /* ---------- lightbox: full-screen view with zoom ---------- */
 const lbEl = document.getElementById("lightbox");
@@ -172,10 +232,6 @@ const lbImg = document.getElementById("lbImg");
 const LB_MAX_SCALE = 4;
 const LB_TAP_SCALE = 2.5;
 let lbScale = 1, lbTx = 0, lbTy = 0;
-
-document.getElementById("lbHint").textContent = matchMedia("(pointer: coarse)").matches
-  ? "Pinch to zoom · double-tap · swipe when zoomed out"
-  : "Click or scroll to zoom · drag to pan";
 
 function lbApply() {
   lbImg.style.transform = `translate(${lbTx}px, ${lbTy}px) scale(${lbScale})`;
@@ -217,20 +273,24 @@ function openLightbox() {
   document.getElementById("lbNext").hidden = !multi;
   lbReset();
   lbEl.classList.add("open");
+  pushOverlayState("lightbox");
 }
 
-function closeLightbox() {
+function lbHide() {
   lbEl.classList.remove("open");
 }
 
+function closeLightbox() {
+  if (hasOverlayState()) history.back();
+  else lbHide();
+}
+
 function lbNav(delta) {
-  setModalImage(modalImgIdx + delta);
+  setModalImage(modalImgIdx + delta, true);
   lbImg.src = modalProduct.images[modalImgIdx];
   lbReset();
 }
 
-document.getElementById("modalImg").addEventListener("click", openLightbox);
-document.getElementById("zoomHint").addEventListener("click", openLightbox);
 document.getElementById("lbClose").addEventListener("click", closeLightbox);
 document.getElementById("lbPrev").addEventListener("click", () => lbNav(-1));
 document.getElementById("lbNext").addEventListener("click", () => lbNav(1));
@@ -337,8 +397,11 @@ document.getElementById("modalAddBtn").addEventListener("click", () => {
   else cart.push({ id: modalProduct.id, size: selectedSize, qty: 1 });
   save();
   renderCart();
-  closeModal();
-  openCart();
+  // swap the modal for the cart drawer in place, reusing the same history entry
+  modalHide();
+  cartShow();
+  if (hasOverlayState()) history.replaceState({ yeali: "cart" }, "");
+  else pushOverlayState("cart");
 });
 
 /* ---------- cart drawer ---------- */
@@ -353,15 +416,31 @@ function showStep(name) {
   Object.entries(steps).forEach(([key, el]) => (el.hidden = key !== name));
 }
 
-function openCart() {
+function cartShow() {
   showStep("bag");
   drawer.classList.add("open");
   document.body.style.overflow = "hidden";
 }
-function closeCart() {
+function openCart() {
+  cartShow();
+  pushOverlayState("cart");
+}
+function drawerHide() {
   drawer.classList.remove("open");
   document.body.style.overflow = "";
 }
+function closeCart() {
+  if (hasOverlayState()) history.back();
+  else drawerHide();
+}
+
+// browser back closes the top overlay
+window.addEventListener("popstate", () => {
+  const lbEl = document.getElementById("lightbox");
+  if (lbEl.classList.contains("open")) return lbHide();
+  if (modal.classList.contains("open")) return modalHide();
+  if (drawer.classList.contains("open")) drawerHide();
+});
 
 function renderCart() {
   const count = cart.reduce((n, i) => n + i.qty, 0);
@@ -422,6 +501,13 @@ drawer.addEventListener("click", (e) => {
 });
 
 document.getElementById("cartBtn").addEventListener("click", openCart);
+document.getElementById("shopMoreBtn").addEventListener("click", () => {
+  closeCart();
+  setTimeout(
+    () => document.getElementById("shop").scrollIntoView({ behavior: "smooth" }),
+    120
+  );
+});
 document.getElementById("toCheckoutBtn").addEventListener("click", () => showStep("details"));
 document.getElementById("backToBag").addEventListener("click", () => showStep("bag"));
 document.getElementById("backToDetails").addEventListener("click", () => showStep("details"));
@@ -495,9 +581,10 @@ document.querySelectorAll("#navLinks a").forEach((a) =>
 document.addEventListener("keydown", (e) => {
   const lbOpen = lbEl.classList.contains("open");
   if (e.key === "Escape") {
-    if (lbOpen) return closeLightbox();
-    closeModal();
-    closeCart();
+    // close only the topmost overlay — each close consumes one history entry
+    if (lbOpen) closeLightbox();
+    else if (modal.classList.contains("open")) closeModal();
+    else if (drawer.classList.contains("open")) closeCart();
     return;
   }
   if (lbOpen && modalProduct && modalProduct.images.length > 1) {
