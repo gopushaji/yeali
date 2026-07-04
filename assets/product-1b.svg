@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="bg-product-1b" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#efe4d1"/><stop offset="1" stop-color="#f7f1e6"/>
+    </linearGradient>
+    <radialGradient id="blob-product-1b" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#dcc9a8" stop-opacity="0.55"/><stop offset="1" stop-color="#dcc9a8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#bg-product-1b)"/>
+  <circle cx="140" cy="170" r="260" fill="url(#blob-product-1b)"/>
+  <circle cx="480" cy="660" r="300" fill="url(#blob-product-1b)"/>
+  <g stroke="#8a7a63" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M300 96 q0 -18 16 -18 t16 14 q0 12 -16 20 l0 14"/>
+    <path d="M300 126 L170 176 L430 176 Z" opacity="0.9"/>
+    <path d="M225 176 q-8 60 12 96 q-40 190 -30 330 q45 34 93 34 t93 -34 q10 -140 -30 -330 q20 -36 12 -96"/>
+    <path d="M240 210 q60 34 120 0" opacity="0.7"/>
+    <path d="M258 322 h84" stroke-width="5"/>
+    <path d="M300 326 q-18 14 -34 4 q10 -20 34 -12 q24 -8 34 12 q-16 10 -34 -4" opacity="0.85"/>
+    <path d="M292 334 q-6 46 -14 78 M308 334 q6 46 14 78" opacity="0.55"/>
+    <path d="M276 360 q-16 80 -10 150 M324 360 q16 80 10 150" opacity="0.4"/>
+  </g>
+  <text x="300" y="758" text-anchor="middle" font-family="Georgia, serif" font-size="17" letter-spacing="7" fill="#8a7a63" opacity="0.55">BACK VIEW</text>
+</svg>

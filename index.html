@@ -166,7 +166,10 @@
     <div class="modal__panel" role="dialog" aria-modal="true" aria-label="Product details">
       <button class="modal__close" data-close-modal aria-label="Close">&times;</button>
       <div class="modal__media">
+        <button class="carousel__arrow carousel__arrow--prev" id="imgPrev" aria-label="Previous photo" hidden>&#8249;</button>
         <img id="modalImg" src="" alt="" />
+        <button class="carousel__arrow carousel__arrow--next" id="imgNext" aria-label="Next photo" hidden>&#8250;</button>
+        <div class="carousel__thumbs" id="modalThumbs"></div>
       </div>
       <div class="modal__info">
         <p class="modal__category" id="modalCategory"></p>

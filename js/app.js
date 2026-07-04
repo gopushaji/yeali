@@ -5,6 +5,11 @@ const WHATSAPP_NUMBER = "919999999999"; // country code + number, digits only
 const INSTAGRAM_URL = "https://instagram.com/yeali";
 const FREE_SHIP_THRESHOLD = 2500;
 
+const PRODUCTS = (window.PRODUCTS || []).map((p) => ({
+  ...p,
+  images: p.images && p.images.length ? p.images : [p.image].filter(Boolean),
+}));
+
 const fmt = (n) => "₹" + n.toLocaleString("en-IN");
 
 /* ---------- state ---------- */
@@ -12,6 +17,7 @@ let cart = []; // { id, size, qty }
 try {
   cart = JSON.parse(localStorage.getItem("yeali-cart") || "[]");
 } catch (_) { cart = []; }
+cart = cart.filter((item) => PRODUCTS.some((p) => p.id === item.id));
 
 const save = () => localStorage.setItem("yeali-cart", JSON.stringify(cart));
 const productById = (id) => PRODUCTS.find((p) => p.id === id);
@@ -25,7 +31,9 @@ grid.innerHTML = PRODUCTS.map(
   <article class="card">
     <div class="card__media" data-open-product="${p.id}">
       ${p.badge ? `<span class="card__badge">${p.badge}</span>` : ""}
-      <img src="${p.image}" alt="${p.name}" loading="lazy" />
+      <img class="card__img" src="${p.images[0]}" alt="${p.name}" loading="lazy" />
+      ${p.images[1] ? `<img class="card__img card__img--alt" src="${p.images[1]}" alt="" loading="lazy" />` : ""}
+      ${p.images.length > 1 ? `<span class="card__photos">${p.images.length} photos</span>` : ""}
       <button class="card__quick" data-open-product="${p.id}">Quick View</button>
     </div>
     <div class="card__body">
@@ -42,17 +50,38 @@ grid.innerHTML = PRODUCTS.map(
 const modal = document.getElementById("productModal");
 let modalProduct = null;
 let selectedSize = null;
+let modalImgIdx = 0;
+
+function setModalImage(idx) {
+  const imgs = modalProduct.images;
+  modalImgIdx = (idx + imgs.length) % imgs.length;
+  const img = document.getElementById("modalImg");
+  img.src = imgs[modalImgIdx];
+  img.alt = `${modalProduct.name} — photo ${modalImgIdx + 1}`;
+  document
+    .querySelectorAll("#modalThumbs button")
+    .forEach((b, i) => b.classList.toggle("active", i === modalImgIdx));
+}
 
 function openProduct(id) {
   modalProduct = productById(id);
   selectedSize = null;
-  document.getElementById("modalImg").src = modalProduct.image;
-  document.getElementById("modalImg").alt = modalProduct.name;
   document.getElementById("modalCategory").textContent = modalProduct.category;
   document.getElementById("modalName").textContent = modalProduct.name;
   document.getElementById("modalPrice").textContent = fmt(modalProduct.price);
   document.getElementById("modalDesc").textContent = modalProduct.desc;
   document.getElementById("modalFabric").textContent = modalProduct.fabric;
+
+  // carousel
+  const multi = modalProduct.images.length > 1;
+  document.getElementById("imgPrev").hidden = !multi;
+  document.getElementById("imgNext").hidden = !multi;
+  document.getElementById("modalThumbs").innerHTML = multi
+    ? modalProduct.images
+        .map((src, i) => `<button type="button" data-img-idx="${i}" aria-label="Photo ${i + 1}"><img src="${src}" alt="" /></button>`)
+        .join("")
+    : "";
+  setModalImage(0);
 
   const picker = document.getElementById("sizePicker");
   picker.innerHTML = modalProduct.sizes
@@ -84,7 +113,13 @@ document.addEventListener("click", (e) => {
       .querySelectorAll("#sizePicker button")
       .forEach((b) => b.classList.toggle("active", b === sizeBtn));
   }
+
+  const thumb = e.target.closest("[data-img-idx]");
+  if (thumb) setModalImage(+thumb.dataset.imgIdx);
 });
+
+document.getElementById("imgPrev").addEventListener("click", () => setModalImage(modalImgIdx - 1));
+document.getElementById("imgNext").addEventListener("click", () => setModalImage(modalImgIdx + 1));
 
 document.getElementById("modalAddBtn").addEventListener("click", () => {
   if (!selectedSize) {
@@ -104,7 +139,6 @@ document.getElementById("modalAddBtn").addEventListener("click", () => {
 
 /* ---------- cart drawer ---------- */
 const drawer = document.getElementById("cartDrawer");
-const drawerPanel = drawer.querySelector(".drawer__panel");
 const steps = {
   bag: document.getElementById("stepBag"),
   details: document.getElementById("stepDetails"),
@@ -129,15 +163,14 @@ function renderCart() {
   const count = cart.reduce((n, i) => n + i.qty, 0);
   document.getElementById("cartCount").textContent = count;
 
-  const bagStep = steps.bag;
-  bagStep.classList.toggle("drawer--empty", cart.length === 0);
+  steps.bag.classList.toggle("drawer--empty", cart.length === 0);
 
   document.getElementById("cartItems").innerHTML = cart
     .map((item, idx) => {
       const p = productById(item.id);
       return `
       <div class="cart-item">
-        <img src="${p.image}" alt="${p.name}" />
+        <img src="${p.images[0]}" alt="${p.name}" />
         <div>
           <p class="cart-item__name">${p.name}</p>
           <p class="cart-item__meta">Size ${item.size}</p>
@@ -259,6 +292,10 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closeModal();
     closeCart();
+  }
+  if (modal.classList.contains("open") && modalProduct) {
+    if (e.key === "ArrowLeft") setModalImage(modalImgIdx - 1);
+    if (e.key === "ArrowRight") setModalImage(modalImgIdx + 1);
   }
 });
 

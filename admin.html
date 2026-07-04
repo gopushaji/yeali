@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yeali — Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <header class="ah">
+    <div class="ah__inner">
+      <span class="ah__brand">YEALI <em>admin</em></span>
+      <div class="ah__actions">
+        <a class="abtn abtn--ghost" href="index.html" target="_blank" rel="noopener">View site</a>
+        <button class="abtn abtn--ghost" id="settingsBtn">Settings</button>
+        <button class="abtn abtn--dark" id="publishBtn">Publish to site</button>
+      </div>
+    </div>
+    <p class="ah__status" id="statusBar"></p>
+  </header>
+
+  <!-- SETTINGS -->
+  <section class="panel" id="settingsPanel" hidden>
+    <h2>Publishing settings</h2>
+    <p class="panel__help">
+      Publishing commits your changes straight to the GitHub repository that hosts the site.
+      You need a <strong>fine-grained personal access token</strong>: on GitHub go to
+      <em>Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</em>,
+      give it access to <strong>only this repository</strong> with <strong>Contents: Read and write</strong> permission.
+      The token is stored only in this browser.
+    </p>
+    <div class="settings-grid">
+      <label>GitHub owner<input id="cfgOwner" placeholder="gopushaji" /></label>
+      <label>Repository<input id="cfgRepo" placeholder="yeali" /></label>
+      <label>Branch<input id="cfgBranch" placeholder="main" /></label>
+      <label>Access token<input id="cfgToken" type="password" placeholder="github_pat_…" /></label>
+    </div>
+    <div class="panel__row">
+      <button class="abtn abtn--dark" id="saveSettingsBtn">Save settings</button>
+      <button class="abtn abtn--ghost" id="testSettingsBtn">Test connection</button>
+    </div>
+  </section>
+
+  <!-- CATALOG -->
+  <section class="catalog">
+    <div class="catalog__head">
+      <h2>Products <span id="productCount"></span></h2>
+      <div>
+        <button class="abtn abtn--ghost" id="resetBtn">Discard draft</button>
+        <button class="abtn abtn--dark" id="addProductBtn">+ Add product</button>
+      </div>
+    </div>
+    <p class="catalog__hint">
+      Changes are saved as a draft in this browser as you type. Nothing is visible to customers
+      until you press <strong>Publish to site</strong>. The first photo of each product is the
+      cover image in the shop; extra photos appear as a carousel.
+    </p>
+    <div id="productList"></div>
+  </section>
+
+  <div class="atoast" id="atoast" role="status"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
