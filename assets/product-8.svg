@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="bg-product-8" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5f3ee"/><stop offset="1" stop-color="#e9e5db"/>
+    </linearGradient>
+    <radialGradient id="blob-product-8" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#cfc8b8" stop-opacity="0.55"/><stop offset="1" stop-color="#cfc8b8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#bg-product-8)"/>
+  <circle cx="470" cy="150" r="260" fill="url(#blob-product-8)"/>
+  <circle cx="110" cy="680" r="300" fill="url(#blob-product-8)"/>
+  <g stroke="#7c7565" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M300 96 q0 -18 16 -18 t16 14 q0 12 -16 20 l0 14"/><path d="M300 126 L170 176 L430 176 Z" opacity="0.9"/>
+<path d="M230 176 l-24 44 q38 26 42 -2 l-8 220 q60 22 120 0 l-8 -220 q4 28 42 2 l-24 -44"/>
+<path d="M278 182 l22 26 22 -26 M300 208 v10"/>
+<path d="M300 230 v190" opacity="0.55"/>
+<circle cx="300" cy="252" r="3.5" opacity="0.8"/>
+<circle cx="300" cy="290" r="3.5" opacity="0.8"/>
+<circle cx="300" cy="328" r="3.5" opacity="0.8"/>
+<circle cx="272" cy="196" r="2.6" opacity="0.7"/><circle cx="328" cy="196" r="2.6" opacity="0.7"/>
+  </g>
+  <text x="300" y="758" text-anchor="middle" font-family="Georgia, serif" font-size="17" letter-spacing="7" fill="#7c7565" opacity="0.55">PEARL</text>
+</svg>

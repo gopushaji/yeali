@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="bg-product-5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8e9e4"/><stop offset="1" stop-color="#f0d3cb"/>
+    </linearGradient>
+    <radialGradient id="blob-product-5" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#e0aca0" stop-opacity="0.55"/><stop offset="1" stop-color="#e0aca0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#bg-product-5)"/>
+  <circle cx="470" cy="150" r="260" fill="url(#blob-product-5)"/>
+  <circle cx="110" cy="680" r="300" fill="url(#blob-product-5)"/>
+  <g stroke="#a56a5e" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M300 96 q0 -18 16 -18 t16 14 q0 12 -16 20 l0 14"/><path d="M300 126 L170 176 L430 176 Z" opacity="0.9"/>
+<path d="M228 176 l-26 46 q36 24 40 -2 l-6 350 q64 18 128 0 l-6 -350 q4 26 40 2 l-26 -46"/>
+<path d="M285 182 q15 14 30 0 l-4 20 q-11 8 -22 0 z"/>
+<path d="M300 204 v120" opacity="0.7"/>
+<path d="M282 220 v90 M318 220 v90" opacity="0.4"/>
+<path d="M242 470 v96 M358 470 v96" opacity="0.6"/>
+  </g>
+  <text x="300" y="758" text-anchor="middle" font-family="Georgia, serif" font-size="17" letter-spacing="7" fill="#a56a5e" opacity="0.55">BLUSH KURTA</text>
+</svg>

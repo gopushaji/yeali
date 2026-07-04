@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="bg-product-1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f1e6"/><stop offset="1" stop-color="#efe4d1"/>
+    </linearGradient>
+    <radialGradient id="blob-product-1" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#dcc9a8" stop-opacity="0.55"/><stop offset="1" stop-color="#dcc9a8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#bg-product-1)"/>
+  <circle cx="470" cy="150" r="260" fill="url(#blob-product-1)"/>
+  <circle cx="110" cy="680" r="300" fill="url(#blob-product-1)"/>
+  <g stroke="#8a7a63" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M300 96 q0 -18 16 -18 t16 14 q0 12 -16 20 l0 14"/><path d="M300 126 L170 176 L430 176 Z" opacity="0.9"/>
+<path d="M225 176 q-8 60 12 96 q-40 190 -30 330 q45 34 93 34 t93 -34 q10 -140 -30 -330 q20 -36 12 -96"/>
+<path d="M237 200 L340 320 M363 200 L260 320"/>
+<path d="M258 322 h84" stroke-width="5"/>
+<path d="M300 330 q-14 60 -8 120 M300 330 q14 60 8 120" opacity="0.55"/>
+<path d="M262 326 q-24 40 -18 78 M338 326 q24 40 18 78" opacity="0.45"/>
+  </g>
+  <text x="300" y="758" text-anchor="middle" font-family="Georgia, serif" font-size="17" letter-spacing="7" fill="#8a7a63" opacity="0.55">IVORY WRAP</text>
+</svg>

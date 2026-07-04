@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="bg-product-2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0dccf"/><stop offset="1" stop-color="#e3bda6"/>
+    </linearGradient>
+    <radialGradient id="blob-product-2" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#cf9271" stop-opacity="0.55"/><stop offset="1" stop-color="#cf9271" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#bg-product-2)"/>
+  <circle cx="470" cy="150" r="260" fill="url(#blob-product-2)"/>
+  <circle cx="110" cy="680" r="300" fill="url(#blob-product-2)"/>
+  <g stroke="#96522f" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M300 96 q0 -18 16 -18 t16 14 q0 12 -16 20 l0 14"/><path d="M300 126 L170 176 L430 176 Z" opacity="0.9"/>
+<path d="M215 176 l-20 40 q40 26 40 -4 l0 150 q65 20 130 0 l0 -150 q0 30 40 4 l-20 -40"/>
+<path d="M300 186 l-14 22 14 130 14 -130 z" opacity="0.7"/>
+<path d="M240 420 h120 l14 250 h-50 l-24 -190 -24 190 h-50 z"/>
+<path d="M240 448 h120" opacity="0.5"/>
+  </g>
+  <text x="300" y="758" text-anchor="middle" font-family="Georgia, serif" font-size="17" letter-spacing="7" fill="#96522f" opacity="0.55">TERRACOTTA</text>
+</svg>

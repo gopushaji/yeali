@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 760">
+  <defs>
+    <linearGradient id="vbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f2e7da"/><stop offset="1" stop-color="#e2cdb8"/>
+    </linearGradient>
+    <radialGradient id="vblob" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#c99b74" stop-opacity="0.5"/><stop offset="1" stop-color="#c99b74" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="760" fill="url(#vbg)"/>
+  <circle cx="520" cy="120" r="240" fill="url(#vblob)"/>
+  <circle cx="90" cy="640" r="260" fill="url(#vblob)"/>
+  <g stroke="#6e523c" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- dress form / mannequin -->
+    <path d="M430 180 q-16 56 10 92 q-34 90 -20 160 q40 26 84 0 q14 -70 -20 -160 q26 -36 10 -92 q-32 -18 -64 0"/>
+    <path d="M462 432 v150 M420 582 h84" />
+    <path d="M438 250 q24 16 48 0" opacity="0.5"/>
+    <!-- designer figure -->
+    <circle cx="220" cy="200" r="42"/>
+    <path d="M220 242 q-60 10 -70 90 l-14 160 q40 22 84 22 t84 -22 l-14 -160 q-10 -80 -70 -90"/>
+    <path d="M158 330 q40 60 130 46"/>
+    <path d="M196 178 q24 -22 48 0" opacity="0.6"/>
+    <!-- fabric flowing between them -->
+    <path d="M288 376 q70 30 122 -10" opacity="0.7"/>
+    <path d="M292 400 q66 44 128 6" opacity="0.45"/>
+    <!-- needle & thread swirl -->
+    <path d="M120 480 q60 -30 90 20 q24 44 -20 60" opacity="0.55" stroke-width="2.6"/>
+  </g>
+  <text x="320" y="712" text-anchor="middle" font-family="Georgia, serif" font-size="19" letter-spacing="8" fill="#6e523c" opacity="0.6">VIDHU · FOUNDER</text>
+</svg>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yeali — Thoughtfully Made Clothing by Vidhu</title>
+  <meta name="description" content="Yeali is a slow-fashion clothing label by designer Vidhu. Handcrafted, small-batch apparel — shop the collection and order directly." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232b2723'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia' font-size='18' fill='%23f4efe8'%3EY%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT -->
+  <div class="announce">Small-batch drops · Free shipping across India on orders over ₹2,500</div>
+
+  <!-- NAV -->
+  <header class="nav" id="top">
+    <nav class="nav__inner">
+      <button class="nav__burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav__links nav__links--left" id="navLinks">
+        <a href="#shop">Shop</a>
+        <a href="#story">Our Story</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="nav__brand" href="#top">YEALI</a>
+      <div class="nav__links nav__links--right">
+        <a href="https://instagram.com/yeali" target="_blank" rel="noopener" class="nav__insta" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.8" cy="6.2" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <button class="nav__cart" id="cartBtn" aria-label="Open cart">
+          Cart <span class="nav__cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__inner">
+      <p class="hero__eyebrow">A slow-fashion label by Vidhu</p>
+      <h1 class="hero__title">Clothing that feels<br /><em>like it was made for you.</em></h1>
+      <p class="hero__sub">Small-batch, thoughtfully designed apparel — crafted with care, worn with ease. Loved by our Instagram community, now with a home of its own.</p>
+      <div class="hero__actions">
+        <a href="#shop" class="btn btn--dark">Shop the Collection</a>
+        <a href="#story" class="btn btn--ghost">Meet Vidhu</a>
+      </div>
+    </div>
+    <div class="hero__marquee" aria-hidden="true">
+      <div class="hero__marquee-track">
+        <span>Handcrafted</span><i>·</i><span>Small Batch</span><i>·</i><span>Designed by Vidhu</span><i>·</i><span>Made in India</span><i>·</i><span>Handcrafted</span><i>·</i><span>Small Batch</span><i>·</i><span>Designed by Vidhu</span><i>·</i><span>Made in India</span><i>·</i>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <main>
+    <section class="shop" id="shop">
+      <div class="section-head">
+        <p class="section-head__eyebrow">The Collection</p>
+        <h2 class="section-head__title">Current Drop</h2>
+        <p class="section-head__sub">Each piece is made in limited numbers. When it's gone, it's gone.</p>
+      </div>
+      <div class="shop__grid" id="productGrid"><!-- products injected by JS --></div>
+    </section>
+
+    <!-- STORY -->
+    <section class="story" id="story">
+      <div class="story__media">
+        <img src="assets/vidhu.svg" alt="Vidhu, founder and designer of Yeali" loading="lazy" />
+      </div>
+      <div class="story__text">
+        <p class="section-head__eyebrow">Our Story</p>
+        <h2>Made by hand,<br />led by heart.</h2>
+        <p>Yeali began at a single sewing table, with founder and designer <strong>Vidhu</strong> cutting, draping and stitching every piece herself. What started as a passion shared over Instagram grew into a community of women who wanted clothing that felt personal — not mass-produced.</p>
+        <p>Every Yeali garment is designed by Vidhu and made in small batches with natural, breathable fabrics. We don't chase trends or seasons. We make clothes meant to be worn, loved and kept.</p>
+        <blockquote>“I design each piece the way I'd make it for a friend — with patience, and with love.”<cite>— Vidhu, Founder &amp; Designer</cite></blockquote>
+      </div>
+    </section>
+
+    <!-- TRUST -->
+    <section class="trust">
+      <div class="trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7.5-4.6-9.5-9C.9 8.4 3 5 6.3 5c2 0 3.4 1 4.2 2.3.4.7 1.4.7 1.8 0C13.1 6 14.6 5 16.6 5 20 5 22 8.4 20.4 12c-2 4.4-8.4 9-8.4 9z"/></svg>
+        <h3>Made with intention</h3>
+        <p>Designed and crafted in small batches — never mass-produced, never rushed.</p>
+      </div>
+      <div class="trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.8" cy="6.2" r="1.1" fill="currentColor" stroke="none"/></svg>
+        <h3>Grown on Instagram</h3>
+        <p>Thousands of happy customers found us through DMs and referrals. See the love at <a href="https://instagram.com/yeali" target="_blank" rel="noopener">@yeali</a>.</p>
+      </div>
+      <div class="trust__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 7 9.5 17.5 4 12"/></svg>
+        <h3>Personal service</h3>
+        <p>Questions about fit or fabric? Message us — Vidhu personally helps every customer find their piece.</p>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="reviews">
+      <div class="section-head">
+        <p class="section-head__eyebrow">From our community</p>
+        <h2 class="section-head__title">Word of Mouth</h2>
+      </div>
+      <div class="reviews__grid">
+        <figure class="review">
+          <div class="review__stars">★★★★★</div>
+          <blockquote>“The fabric, the fit, the finishing — you can tell every piece is made with so much care. I've ordered four times now.”</blockquote>
+          <figcaption>Ananya · Bengaluru</figcaption>
+        </figure>
+        <figure class="review">
+          <div class="review__stars">★★★★★</div>
+          <blockquote>“Found Yeali through a friend's story and DM'd right away. Vidhu helped me pick the right size — it fits like it was tailored for me.”</blockquote>
+          <figcaption>Meera · Kochi</figcaption>
+        </figure>
+        <figure class="review">
+          <div class="review__stars">★★★★★</div>
+          <blockquote>“Finally, clothes that look as good in person as they do on Instagram. The wrap dress is my most-complimented outfit.”</blockquote>
+          <figcaption>Sara · Mumbai</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- INSTAGRAM CTA -->
+    <section class="insta-cta" id="contact">
+      <h2>Come say hello</h2>
+      <p>Follow <a href="https://instagram.com/yeali" target="_blank" rel="noopener">@yeali</a> for new drops, behind-the-scenes and styling notes — or DM us anytime. We reply personally, always.</p>
+      <a class="btn btn--dark" href="https://instagram.com/yeali" target="_blank" rel="noopener">Follow on Instagram</a>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="footer__logo">YEALI</span>
+        <p>Thoughtfully made clothing,<br />designed by Vidhu.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <a href="#shop">Current Drop</a>
+        <a href="#story">Our Story</a>
+      </div>
+      <div class="footer__col">
+        <h4>Help</h4>
+        <a href="https://instagram.com/yeali" target="_blank" rel="noopener">Size &amp; fit — DM us</a>
+        <a href="https://instagram.com/yeali" target="_blank" rel="noopener">Shipping &amp; returns</a>
+      </div>
+      <div class="footer__col">
+        <h4>Connect</h4>
+        <a href="https://instagram.com/yeali" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:hello@yeali.in">hello@yeali.in</a>
+      </div>
+    </div>
+    <p class="footer__fine">© 2026 Yeali. All pieces designed by Vidhu. Made with love in India.</p>
+  </footer>
+
+  <!-- QUICK VIEW MODAL -->
+  <div class="modal" id="productModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-label="Product details">
+      <button class="modal__close" data-close-modal aria-label="Close">&times;</button>
+      <div class="modal__media">
+        <img id="modalImg" src="" alt="" />
+      </div>
+      <div class="modal__info">
+        <p class="modal__category" id="modalCategory"></p>
+        <h3 id="modalName"></h3>
+        <p class="modal__price" id="modalPrice"></p>
+        <p class="modal__desc" id="modalDesc"></p>
+        <div class="modal__field">
+          <label>Size</label>
+          <div class="size-picker" id="sizePicker"></div>
+        </div>
+        <div class="modal__detail-rows">
+          <details><summary>Fabric &amp; care</summary><p id="modalFabric"></p></details>
+          <details><summary>Shipping</summary><p>Dispatched in 3–5 days (each piece is made to order). Free shipping over ₹2,500.</p></details>
+        </div>
+        <button class="btn btn--dark btn--full" id="modalAddBtn">Add to Bag</button>
+        <p class="modal__note">Unsure about size? <a href="https://instagram.com/yeali" target="_blank" rel="noopener">DM us on Instagram</a> — we'll help you choose.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="drawer" id="cartDrawer" aria-hidden="true">
+    <div class="drawer__backdrop" data-close-cart></div>
+    <aside class="drawer__panel" role="dialog" aria-modal="true" aria-label="Shopping bag">
+
+      <!-- Step 1: bag -->
+      <div class="drawer__step" id="stepBag">
+        <div class="drawer__head">
+          <h3>Your Bag</h3>
+          <button class="drawer__close" data-close-cart aria-label="Close">&times;</button>
+        </div>
+        <div class="drawer__items" id="cartItems"></div>
+        <div class="drawer__empty" id="cartEmpty">
+          <p>Your bag is empty.</p>
+          <button class="btn btn--ghost" data-close-cart>Browse the collection</button>
+        </div>
+        <div class="drawer__foot" id="cartFoot">
+          <div class="drawer__total"><span>Subtotal</span><strong id="cartTotal">₹0</strong></div>
+          <p class="drawer__ship-note" id="shipNote"></p>
+          <button class="btn btn--dark btn--full" id="toCheckoutBtn">Checkout</button>
+        </div>
+      </div>
+
+      <!-- Step 2: details -->
+      <div class="drawer__step" id="stepDetails" hidden>
+        <div class="drawer__head">
+          <button class="drawer__back" id="backToBag" aria-label="Back">&larr;</button>
+          <h3>Delivery Details</h3>
+          <button class="drawer__close" data-close-cart aria-label="Close">&times;</button>
+        </div>
+        <form class="checkout-form" id="checkoutForm">
+          <label>Full name<input type="text" id="fName" required autocomplete="name" placeholder="Your name" /></label>
+          <label>Phone / WhatsApp<input type="tel" id="fPhone" required autocomplete="tel" placeholder="+91" /></label>
+          <label>Delivery address<textarea id="fAddress" required rows="3" autocomplete="street-address" placeholder="House / street, city, state, PIN"></textarea></label>
+          <label>Note for Vidhu <span class="opt">(optional)</span><input type="text" id="fNote" placeholder="Fit preference, occasion, anything else" /></label>
+          <div class="drawer__total"><span>Order total</span><strong id="checkoutTotal">₹0</strong></div>
+          <button type="submit" class="btn btn--dark btn--full">Review Order</button>
+        </form>
+      </div>
+
+      <!-- Step 3: confirm & send -->
+      <div class="drawer__step" id="stepConfirm" hidden>
+        <div class="drawer__head">
+          <button class="drawer__back" id="backToDetails" aria-label="Back">&larr;</button>
+          <h3>Place Your Order</h3>
+          <button class="drawer__close" data-close-cart aria-label="Close">&times;</button>
+        </div>
+        <div class="confirm">
+          <p class="confirm__intro">We keep things personal — your order goes straight to Vidhu. Send it via WhatsApp or Instagram and we'll confirm payment &amp; delivery within a few hours.</p>
+          <pre class="confirm__summary" id="orderSummary"></pre>
+          <a class="btn btn--dark btn--full" id="waBtn" target="_blank" rel="noopener">Send Order on WhatsApp</a>
+          <button class="btn btn--ghost btn--full" id="igBtn">Copy &amp; DM on Instagram</button>
+          <p class="confirm__copied" id="copiedMsg" hidden>Order copied — paste it in our Instagram DM ✨</p>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
