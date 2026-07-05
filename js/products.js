@@ -2,6 +2,30 @@
 // This file is managed by the admin page (admin.html) — "Publish" rewrites it.
 window.PRODUCTS = [
   {
+    "id": "product-1783230428306",
+    "name": "Blue Kurta",
+    "category": "Tunics",
+    "price": 1099,
+    "badge": "New",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "assets/uploads/product-1783230428306-1783230654948-0.jpg",
+      "assets/uploads/product-1783230428306-1783230657313-1.jpg",
+      "assets/uploads/product-1783230428306-1783230659224-2.jpg",
+      "assets/uploads/product-1783230428306-1783230661297-3.jpg",
+      "assets/uploads/product-1783230428306-1783230663204-4.jpg",
+      "assets/uploads/product-1783230428306-1783230665448-5.jpg"
+    ],
+    "desc": "",
+    "fabric": ""
+  },
+  {
     "id": "product-1783160508183",
     "name": "Crushed Rayon Classic Tunic",
     "category": "Classic Tunics",
