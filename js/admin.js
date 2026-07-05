@@ -280,20 +280,65 @@ cropZoom.addEventListener("input", () => {
   cropRender();
 });
 
-let cropDrag = null;
+// one finger drags, two fingers pinch-zoom (slider stays available for mice)
+const CROP_MAX_ZOOM = 4;
+const cropPointers = new Map();
+let cropGesture = null;
+
+function cropWinPoint(x, y) {
+  const r = cropWindowEl.getBoundingClientRect();
+  return { x: x - r.left, y: y - r.top };
+}
+
+function startCropGesture() {
+  const pts = [...cropPointers.values()];
+  if (pts.length === 2) {
+    cropGesture = {
+      pinch: true,
+      d0: Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y),
+      mid0: cropWinPoint((pts[0].x + pts[1].x) / 2, (pts[0].y + pts[1].y) / 2),
+      zoom0: crop.zoom, tx0: crop.tx, ty0: crop.ty,
+    };
+  } else if (pts.length === 1) {
+    cropGesture = { pinch: false, x: pts[0].x, y: pts[0].y, tx0: crop.tx, ty0: crop.ty };
+  } else {
+    cropGesture = null;
+  }
+}
+
 cropStage.addEventListener("pointerdown", (e) => {
   if (!crop) return;
   try { cropStage.setPointerCapture(e.pointerId); } catch (_) {}
-  cropDrag = { x: e.clientX, y: e.clientY, tx: crop.tx, ty: crop.ty };
+  cropPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  startCropGesture();
 });
 cropStage.addEventListener("pointermove", (e) => {
-  if (!crop || !cropDrag) return;
-  crop.tx = cropDrag.tx + (e.clientX - cropDrag.x);
-  crop.ty = cropDrag.ty + (e.clientY - cropDrag.y);
-  cropRender();
+  if (!crop || !cropPointers.has(e.pointerId) || !cropGesture) return;
+  cropPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  const pts = [...cropPointers.values()];
+  if (cropGesture.pinch && pts.length === 2) {
+    const d = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+    const mid = cropWinPoint((pts[0].x + pts[1].x) / 2, (pts[0].y + pts[1].y) / 2);
+    const zoom = Math.min(CROP_MAX_ZOOM, Math.max(1, cropGesture.zoom0 * (d / cropGesture.d0)));
+    const sOld = crop.base * cropGesture.zoom0;
+    const sNew = crop.base * zoom;
+    // keep the image point that was under the pinch midpoint pinned to it
+    crop.tx = mid.x - (sNew / sOld) * (cropGesture.mid0.x - cropGesture.tx0);
+    crop.ty = mid.y - (sNew / sOld) * (cropGesture.mid0.y - cropGesture.ty0);
+    crop.zoom = zoom;
+    cropZoom.value = Math.min(zoom, +cropZoom.max);
+    cropRender();
+  } else if (!cropGesture.pinch && pts.length === 1) {
+    crop.tx = cropGesture.tx0 + (pts[0].x - cropGesture.x);
+    crop.ty = cropGesture.ty0 + (pts[0].y - cropGesture.y);
+    cropRender();
+  }
 });
 ["pointerup", "pointercancel"].forEach((ev) =>
-  cropStage.addEventListener(ev, () => (cropDrag = null))
+  cropStage.addEventListener(ev, (e) => {
+    cropPointers.delete(e.pointerId);
+    if (crop) startCropGesture();
+  })
 );
 
 document.getElementById("cropSkip").addEventListener("click", () => closeCropper(null));
