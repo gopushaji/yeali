@@ -151,7 +151,11 @@ listEl.addEventListener("click", async (e) => {
   else if (act === "img-right" && j < p.images.length - 1) [p.images[j + 1], p.images[j]] = [p.images[j], p.images[j + 1]];
   else if (act === "img-add") {
     const files = await pickFiles();
-    for (const f of files) p.images.push(await compressImage(f));
+    for (let i = 0; i < files.length; i++) {
+      const label = files.length > 1 ? `${i + 1} of ${files.length}` : "";
+      const cropped = await openCropper(files[i], label);
+      if (cropped) p.images.push(cropped);
+    }
   } else return;
 
   saveDraft();
@@ -197,22 +201,116 @@ function pickFiles() {
   });
 }
 
-function compressImage(file, maxSide = 1400, quality = 0.82) {
-  return new Promise((resolve, reject) => {
+/* ---------- crop overlay: standardize photos to 3:4 portrait ---------- */
+const CROP_RATIO = 3 / 4; // width / height
+const CROP_MAX_W = 1200;
+
+const cropEl = document.getElementById("cropper");
+const cropStage = document.getElementById("cropStage");
+const cropWindowEl = document.getElementById("cropWindow");
+const cropImg = document.getElementById("cropImg");
+const cropImgDim = document.getElementById("cropImgDim");
+const cropZoom = document.getElementById("cropZoom");
+
+let crop = null;
+
+function cropRender() {
+  const s = crop.base * crop.zoom;
+  // the crop window must always be fully covered by the image
+  crop.tx = Math.min(0, Math.max(crop.winW - crop.natW * s, crop.tx));
+  crop.ty = Math.min(0, Math.max(crop.winH - crop.natH * s, crop.ty));
+  cropImg.style.transform = `translate(${crop.tx}px, ${crop.ty}px) scale(${s})`;
+  cropImgDim.style.transform = `translate(${crop.tx + crop.ox}px, ${crop.ty + crop.oy}px) scale(${s})`;
+}
+
+function openCropper(file, label) {
+  return new Promise((resolve) => {
+    const url = URL.createObjectURL(file);
     const img = new Image();
     img.onload = () => {
-      const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
-      const canvas = document.createElement("canvas");
-      canvas.width = Math.round(img.width * scale);
-      canvas.height = Math.round(img.height * scale);
-      canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
-      URL.revokeObjectURL(img.src);
-      resolve(canvas.toDataURL("image/jpeg", quality));
+      cropEl.hidden = false;
+      document.getElementById("cropCount").textContent = label;
+      cropImg.src = url;
+      cropImgDim.src = url;
+      // centre a 3:4 window inside the square stage, leaving a dim margin
+      const stage = cropStage.getBoundingClientRect();
+      const winH = Math.round(stage.height * 0.92);
+      const winW = Math.round(winH * CROP_RATIO);
+      const ox = Math.round((stage.width - winW) / 2);
+      const oy = Math.round((stage.height - winH) / 2);
+      Object.assign(cropWindowEl.style, {
+        width: winW + "px", height: winH + "px", left: ox + "px", top: oy + "px",
+      });
+      const base = Math.max(winW / img.naturalWidth, winH / img.naturalHeight);
+      crop = {
+        imgEl: img, url, resolve,
+        natW: img.naturalWidth, natH: img.naturalHeight,
+        base, zoom: 1, winW, winH, ox, oy,
+        tx: (winW - img.naturalWidth * base) / 2,
+        ty: (winH - img.naturalHeight * base) / 2,
+      };
+      cropZoom.value = 1;
+      cropRender();
     };
-    img.onerror = reject;
-    img.src = URL.createObjectURL(file);
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      toast("Couldn't read that image file");
+      resolve(null);
+    };
+    img.src = url;
   });
 }
+
+function closeCropper(result) {
+  cropEl.hidden = true;
+  URL.revokeObjectURL(crop.url);
+  const resolve = crop.resolve;
+  crop = null;
+  resolve(result);
+}
+
+cropZoom.addEventListener("input", () => {
+  if (!crop) return;
+  const sOld = crop.base * crop.zoom;
+  crop.zoom = +cropZoom.value;
+  const sNew = crop.base * crop.zoom;
+  // zoom around the window centre
+  crop.tx = crop.winW / 2 - ((crop.winW / 2 - crop.tx) / sOld) * sNew;
+  crop.ty = crop.winH / 2 - ((crop.winH / 2 - crop.ty) / sOld) * sNew;
+  cropRender();
+});
+
+let cropDrag = null;
+cropStage.addEventListener("pointerdown", (e) => {
+  if (!crop) return;
+  try { cropStage.setPointerCapture(e.pointerId); } catch (_) {}
+  cropDrag = { x: e.clientX, y: e.clientY, tx: crop.tx, ty: crop.ty };
+});
+cropStage.addEventListener("pointermove", (e) => {
+  if (!crop || !cropDrag) return;
+  crop.tx = cropDrag.tx + (e.clientX - cropDrag.x);
+  crop.ty = cropDrag.ty + (e.clientY - cropDrag.y);
+  cropRender();
+});
+["pointerup", "pointercancel"].forEach((ev) =>
+  cropStage.addEventListener(ev, () => (cropDrag = null))
+);
+
+document.getElementById("cropSkip").addEventListener("click", () => closeCropper(null));
+document.getElementById("cropApply").addEventListener("click", () => {
+  const s = crop.base * crop.zoom;
+  const sx = -crop.tx / s;
+  const sy = -crop.ty / s;
+  const sw = crop.winW / s;
+  const sh = crop.winH / s;
+  const outW = Math.min(CROP_MAX_W, Math.round(sw)); // never upscale
+  const outH = Math.round(outW / CROP_RATIO);
+  const canvas = document.createElement("canvas");
+  canvas.width = outW;
+  canvas.height = outH;
+  canvas.getContext("2d").drawImage(crop.imgEl, sx, sy, sw, sh, 0, 0, outW, outH);
+  closeCropper(canvas.toDataURL("image/jpeg", 0.85));
+});
 
 /* ---------- settings ---------- */
 const settingsPanel = document.getElementById("settingsPanel");

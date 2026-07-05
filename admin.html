@@ -78,6 +78,27 @@
     <div id="productList"></div>
   </section>
 
+  <!-- CROP OVERLAY: photos are standardized to 3:4 portrait -->
+  <div class="cropper" id="cropper" hidden>
+    <div class="cropper__panel">
+      <h3>Position photo <span id="cropCount"></span></h3>
+      <p>Shop photos are portrait (3:4). Drag to reposition and zoom with the slider — the bright area is exactly what customers will see.</p>
+      <div class="cropper__stage" id="cropStage">
+        <img id="cropImgDim" alt="" draggable="false" />
+        <div class="cropper__window" id="cropWindow">
+          <img id="cropImg" alt="" draggable="false" />
+        </div>
+      </div>
+      <label class="cropper__zoom">Zoom
+        <input type="range" id="cropZoom" min="1" max="3" step="0.01" value="1" />
+      </label>
+      <div class="cropper__actions">
+        <button class="abtn abtn--ghost" id="cropSkip">Skip photo</button>
+        <button class="abtn abtn--dark" id="cropApply">Apply &amp; add</button>
+      </div>
+    </div>
+  </div>
+
   <div class="atoast" id="atoast" role="status"></div>
 
   <script src="js/products.js"></script>
