@@ -598,6 +598,7 @@ document.getElementById("burger").addEventListener("click", () => {
   navScrim.classList.toggle("show", open);
 });
 navScrim.addEventListener("click", closeMenu);
+document.getElementById("menuClose").addEventListener("click", closeMenu);
 document.querySelectorAll("#navLinks a").forEach((a) => a.addEventListener("click", closeMenu));
 
 document.addEventListener("keydown", (e) => {
