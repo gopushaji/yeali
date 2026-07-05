@@ -6,7 +6,7 @@ window.PRODUCTS = [
     "name": "Crushed Rayon Classic Tunic",
     "category": "Classic Tunics",
     "price": 999,
-    "badge": "",
+    "badge": "Bestseller",
     "sizes": [
       "M",
       "L",
@@ -24,16 +24,16 @@ window.PRODUCTS = [
     "name": "Printed Blue Floral Kurta",
     "category": "Casual Kurtas",
     "price": 899,
-    "badge": "",
+    "badge": "New",
     "sizes": [
       "M",
       "L"
     ],
     "images": [
-      "assets/uploads/sage-slip-dress-1783158314236-4.jpg",
-      "assets/uploads/sage-slip-dress-1783158306083-0.jpg",
       "assets/uploads/sage-slip-dress-1783158307673-1.jpg",
       "assets/uploads/sage-slip-dress-1783158309587-2.jpg",
+      "assets/uploads/sage-slip-dress-1783158306083-0.jpg",
+      "assets/uploads/sage-slip-dress-1783158314236-4.jpg",
       "assets/uploads/sage-slip-dress-1783158311674-3.jpg"
     ],
     "desc": "Printed cotton loose-fit kurti crafted from soft, breathable cotton for all-day comfort. Designed with a stylish contrast embroidered neck band that adds an elegant touch to the classic printed fabric. The relaxed silhouette offers effortless style, making it perfect for everyday wear, office, and casual outings.",
@@ -44,7 +44,7 @@ window.PRODUCTS = [
     "name": "Elegant Lace Mermaid Gown",
     "category": "Bespoke Gowns",
     "price": 69999,
-    "badge": "Bestseller",
+    "badge": "",
     "sizes": [
       "XS",
       "S",
@@ -69,7 +69,7 @@ window.PRODUCTS = [
     "name": "Crimson Red Bridal Lehenga",
     "category": "Bespoke Lehengas",
     "price": 34999,
-    "badge": "New",
+    "badge": "",
     "sizes": [
       "Custom Made"
     ],
