@@ -86,7 +86,7 @@ window.PRODUCTS = [
       "assets/uploads/ivory-wrap-dress-1783157024025-1.jpg"
     ],
     "desc": "A softly draped wrap silhouette in handloom cotton — cinches at the waist, flows everywhere else. Day-to-dinner easy.",
-    "fabric": "100% handloom cotton. Gentle machine wash cold, line dry in shade."
+    "fabric": ""
   },
   {
     "id": "terracotta-coord",
