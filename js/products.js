@@ -3,16 +3,12 @@
 window.PRODUCTS = [
   {
     "id": "product-1783230428306",
-    "name": "Blue Kurta",
+    "name": "Sage Green tunic",
     "category": "Tunics",
     "price": 1099,
     "badge": "New",
     "sizes": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
+      "Freesize"
     ],
     "images": [
       "assets/uploads/product-1783230428306-1783230654948-0.jpg",
@@ -23,7 +19,7 @@ window.PRODUCTS = [
       "assets/uploads/product-1783230428306-1783230665448-5.jpg"
     ],
     "desc": "",
-    "fabric": ""
+    "fabric": "Crushed rayon"
   },
   {
     "id": "product-1783160508183",
